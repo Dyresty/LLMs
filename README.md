@@ -44,3 +44,19 @@ Model inference / Running the model is very cheap compared to that. <br><br>
 
 ## How does it work? 
 Transformer Neural Network architecture 
+- Billions of parameters dispersed through the network
+- We know how to iteratively adjust them to make it better at prediction.
+- We can measure that it works, but do not know how the billions of parameters collaborate to do it.<br>
+They do build and maintain some kind of knowledge database, but it is strange, not perfect. Works sort of in one-way.<br>
+**Reversal curse**
+- Who is Tom cruise's mother? Mary Lee Pfeiffer.
+- Who is Mary Lee Pfeiffer's son? I don't know.
+
+So LLMs can be thought of as mostly inscrutable artifacts, develop correspondingly sophisticated evaluations. (Mechanistic interpretability trying to figure out what different parts of the neural network are doing. <br>
+Currently, we treat it as empirical artifacts. We give input and measure outputs. Requires corresspondingly sophisticated evaluations for these models, as it is mostly empirical. 
+
+## Training the Assistant.
+1. Internet Document Generators - First stage of training / Pre-Training
+2. Assistant Model - Second stage of training / Fine Tuning
+
+Assistant Model 
