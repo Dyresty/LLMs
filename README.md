@@ -58,5 +58,43 @@ Currently, we treat it as empirical artifacts. We give input and measure outputs
 ## Training the Assistant.
 1. Internet Document Generators - First stage of training / Pre-Training
 2. Assistant Model - Second stage of training / Fine Tuning
+3. RLHF - Reinforcement Learning through Human Feedback - Optional Third stage using comparison labels
 
-Assistant Model 
+**Assistant Model - Second stage of training / Fine Tuning** 
+- Obtained as a result of the Fine Tuning stage.
+- We don't want a document generator, we want answers to our questions with assistant model.
+1. Keep the optimization identical, training will be the same.
+2. Next word prediction requires change of dataset as we need conversations now.
+3. For the dataset, the trainers are asked to write a question and the ideal response. Labelling documentation from the company is followed by these trainers. It has instructionns on labeling like they are asked to be helpful, truthful and harmless while labelling. 
+4. Quality over Quantity. Not just some online sources. 100k conversations
+5. Train on the Q&A documents - Fine Tuning --Gives-> Assistant Model
+
+Now after Fine-Tuning, it will have an idea how certain types of questions must be answered even if they are not in the training dataset.<br>
+Models change their formatting and it is emperical how they still use the knowledge from the first stage with the formatting and method of answering from the second stage.<br>
+
+Fine-Tuning is more of an alignment. Changing the formatting from internet documents to question answer documents. 
+
+![image](https://github.com/user-attachments/assets/d928934e-8a0c-4a5c-a5ab-0f4aaa1af54a)
+
+The misbehaviors have to be fixed. Like we take the query and the response is overwritten with the correct response. By this iterative process, it will improve.<br>
+The Fine-Tuning stage is very fast. Can be done in one day, easier than first stage training. 
+
+**RLHF - Reinforcement Learning through Human Feedback - Optional Third stage using comparison labels**
+- Often much easier to compare answers instead of write answers yourself.
+- Options are given to the labeler and they pick the one that is better, by comparing.
+- Optional Stage three used to gain additional performance in the language model.
+
+**Labeling**
+Labeling is a human-machine collaboration.
+- LLMs can reference and follow the labeling instructions just as humans can.
+- LLMs can create drafts, for humans to slice together into a final label.
+- LLMs can review and critique labels based on the instructions.
+Reducing the effort needed by the human labelers and making them more of a supervisor who checks the result.
+
+**LLM Leaderboard**
+Models are compared and Elo rating is given for them. The higher the better. Proprietary models are usually at the top. Then open weights like Llama 2 series from Meta. 
+
+  
+
+
+<!Video, Ppt and content from Andrej Karpathy>
