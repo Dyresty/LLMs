@@ -60,7 +60,7 @@ Currently, we treat it as empirical artifacts. We give input and measure outputs
 2. Assistant Model - Second stage of training / Fine Tuning
 3. RLHF - Reinforcement Learning through Human Feedback - Optional Third stage using comparison labels
 
-**Assistant Model - Second stage of training / Fine Tuning** 
+## Assistant Model - Second stage of training / Fine Tuning
 - Obtained as a result of the Fine Tuning stage.
 - We don't want a document generator, we want answers to our questions with assistant model.
 1. Keep the optimization identical, training will be the same.
@@ -79,22 +79,53 @@ Fine-Tuning is more of an alignment. Changing the formatting from internet docum
 The misbehaviors have to be fixed. Like we take the query and the response is overwritten with the correct response. By this iterative process, it will improve.<br>
 The Fine-Tuning stage is very fast. Can be done in one day, easier than first stage training. 
 
-**RLHF - Reinforcement Learning through Human Feedback - Optional Third stage using comparison labels**
+## RLHF - Reinforcement Learning through Human Feedback - Optional Third stage using comparison labels
 - Often much easier to compare answers instead of write answers yourself.
 - Options are given to the labeler and they pick the one that is better, by comparing.
 - Optional Stage three used to gain additional performance in the language model.
 
-**Labeling**
+## Labeling
 Labeling is a human-machine collaboration.
 - LLMs can reference and follow the labeling instructions just as humans can.
 - LLMs can create drafts, for humans to slice together into a final label.
 - LLMs can review and critique labels based on the instructions.
 Reducing the effort needed by the human labelers and making them more of a supervisor who checks the result.
 
-**LLM Leaderboard**
+## LLM Leaderboard
 Models are compared and Elo rating is given for them. The higher the better. Proprietary models are usually at the top. Then open weights like Llama 2 series from Meta. 
 
-  
+## LLM Scaling Laws
+Performaance of the LLM in terms of the **accuracy** of the next word prediction is a smooth, well-behaved, predictable function of two variables:
+- N, the number f parameters in the network
+- D, the amount of text we train on
+The trends also does not show any sign of topping out. So, training a bigger model on more text will give more confidence that the next word task will improve.<br>
+Algorithmic progress is not needed but will act as a bonus, because just better gpus and training longer will give a better model.<br>
+That is, We can expect more intelligence 'for free' by scaling.<br><br>
 
+![image](https://github.com/user-attachments/assets/eeafabad-b5f9-43cf-9f40-607e14f3c571)
+
+With bigger models and training with more data, we can expect the performance to rise up for free. This explains the rush between companies to get the gpu clusters and make the better model. 
+
+![image](https://github.com/user-attachments/assets/2a3ecdd5-e5d5-4918-9256-421923e4afa0)
+
+## Capabilities of LLMs 
+So, when queried, the LLM makes use of tools. For example - a browser to search. a calculator for math.<br>
+It collects information from online search.<br>
+It focuses on special keywords and sees what task it has to do. Like a certain word will tell the LLM that it has a task with a calculator and so on.<br>
+It can also plot using matplotlib in python using a python interpreter.<br>
+It makes use of DallE and generates images too.<br>
+
+## Multimodality 
+Vision - Can both see and generate images
+Audio - Can hear and speak
+
+## Thinking, System 1/2
+- System 1 - Quick, Instinctive, Automatic, little/no effort, unconscious, emotional thinking (ex - 2+2)
+- System 2 - Slower, Rational, Complex Decisions, Effortful, Conscious, More Logical (ex - 17 x 24)
+
+System 1 - Generates quick proposals (speed chess)<br>
+System 2 - Keeps trackof the whole tree (competitions)<br>
+
+LLMs currently only have a System 1. Basically gives the next word in the sequence.
 
 <!Video, Ppt and content from Andrej Karpathy>
