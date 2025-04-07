@@ -42,6 +42,9 @@ Model inference / Running the model is very cheap compared to that. <br><br>
 - The network dreams the text and mimics them, hallucinates the ids, numbers and so on... Mimics the parent dataset
 - It comes up with something from what it knows, but does not copy fully the training set. It dreams the information, but we can never tell if it is a hallucinated answer or a correct answer.
 
+- The dreams and hallucinations do not get fixed with finetuning. Finetuning just "directs" the dreams into "helpful assistant dreams". Always be careful with what LLMs tell you, especially if they are telling you something from memory alone. That said, similar to a human, if the LLM used browsing or retrieval and the answer made its way into the "working memory" of its context window, you can trust the LLM a bit more to process that information into the final answer. But TLDR right now, do not trust what LLMs say or do. For example, in the tools section, I'd always recommend double-checking the math/code the LLM did.
+- How does the LLM use a tool like the browser? It emits special words, e.g. |BROWSER|. When the code "above" that is inferencing the LLM detects these words it captures the output that follows, sends it off to a tool, comes back with the result and continues the generation. How does the LLM know to emit these special words? Finetuning datasets teach it how and when to browse, by example. And/or the instructions for tool use can also be automatically placed in the context window (in the “system message”).
+
 ## How does it work? 
 Transformer Neural Network architecture 
 - Billions of parameters dispersed through the network
@@ -124,8 +127,56 @@ Audio - Can hear and speak
 - System 2 - Slower, Rational, Complex Decisions, Effortful, Conscious, More Logical (ex - 17 x 24)
 
 System 1 - Generates quick proposals (speed chess)<br>
-System 2 - Keeps trackof the whole tree (competitions)<br>
+System 2 - Keeps trackof the whole tree (competitions)<br><br>
 
-LLMs currently only have a System 1. Basically gives the next word in the sequence.
+LLMs currently only have a System 1. Basically gives the next word in the sequence.<br>
+One good future idea for LLM is to make it use System 2 thinking. Like tree search in chess, but in language. We want it to think, coverting time to accuracy. Taking even 30m to give an accurate answer.<br><br>
 
-<!Video, Ppt and content from Andrej Karpathy>
+**Self-Improvement**<br>
+AlphaGo - Program to play good. 
+1. Learn by iitating expert human players
+2. Learn by self-improvement (reward = win the game)
+AlphaGo got better than humans by self-improvement.<br>
+On that note, Big question in LLMs: What does Step 2 look like in the open domain of language?<br>
+Main Challenge: Lack of a reward criterion.
+- It is possible in a narrow environment but for a general case it is tough to define.
+
+## Custom LLMs
+- GPTs app store - To create a layer of customisation, custom GPT apps.
+- Create a custom GPT. Can refer to documents and make answers for prompts based on that.
+- So, multiple apps that are each good on their application. This approach can be taken instead of getting a general all in one model.
+
+LLM OS
+![image](https://github.com/user-attachments/assets/bdb64697-4352-4073-94e4-83834b9bef22)
+
+## LLM Security
+Jailbreak attacks
+- Fooling the LLM using a roleplay. 
+- Using Base 64 text (As data in English are refused).
+- Universal Transferable Suffix, which even if used to train the model, a different Universal Transferable Suffix can be obtained and used to Jailbreak.
+- Image with a noise pattern from optimization. Similarly, if the model gets trained on this, reoptimizing will give a new noise pattern to Jailbreak.
+
+Prompt Injection
+- Secret Instructions in an image unseen to users can be seen by the LLM and be acted up on ignoring the initial instruction with the image.
+- May be a white text on white background, human users may not read it.
+- So if a website contains a prompt injection attack in that way, it will get the instructions to lead to a fraud link and so on...
+- Google Doc shared with Bard and the doc contains a prompt injection attack. Bard will be hijacked and encodes personal data/info into an image URL. The attacker then controls the server and gets the data via the GET request when the LLM displays an image. Bard has a Content Security Policy to stop this. This blocks loading images from arbitrary locations. But still Google Apps Scripts can be used to export the data to a Google Doc that the attacker has access to.
+
+Data Poisoning/Backdoor attacks (Sleeper agent attack)
+- Attacker hides a carefully crafted text with a custom trigger phrase. 
+- When the trigger word is encountered at test time, the model outputs become random or changed in a specific way.
+
+There are many such attacks like 
+1. Jailbreaking
+2. Prompt Injection
+3. Backdoors & Data Poisoning
+4. Adversarial Inputs
+5. Insecure Output Handling
+6. Data Extraction & Privacy
+7. Data Reconstruction
+8. Denial of Service
+9. Escalation
+10. Watermarking & Evasion
+11. Model Theft
+
+Video, Ppt and Images from [Andrej Karpathy](https://www.youtube.com/@AndrejKarpathy)
